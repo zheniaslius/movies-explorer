@@ -22,12 +22,13 @@ import Movie from './Movie';
 const AnimatedMovie = animated(Movie);
 const CAROUSEL_ITEM_WIDTH = 240;
 
-const MoviesList = props => {
-    let lastMovie, scrolled = 0;
+const MoviesList = () => {
+    let lastMovie;
     const dispatch = useDispatch()
     const movies = useSelector(state => state.movies.movies);
     const scrollable = useRef(null);
     const [scrollError, setScrollError] = useState(false);
+    const [scrolled, setScrolled] = useState(0);
 
     // Animations
     const [trail, setTrail, stopTrail] = useTrail(movies.length, () => ({
@@ -41,6 +42,7 @@ const MoviesList = props => {
         if (!movies.length) dispatch(actions.getMovies());
     }, [])
     useEffect(() => () => stopTrail());
+    // If no items on the left
     useEffect(() => {
         scrollError && setError({ to: [{ x: 50 }, { x: 0 }] });
         return () => setScrollError(false);
@@ -54,7 +56,7 @@ const MoviesList = props => {
         const mobileHeight = 900;
         const scrollItems = (window.innerHeight < mobileHeight) ? 1 : 4;
         scrollable.current.style.transform = `translateX(${(scrolled + to) * scrollItems}px)`;
-        scrolled += to;
+        setScrolled(scrolled + to);
     
         if (isInView(ReactDOM.findDOMNode(lastMovie))) {
             dispatch(actions.getMovies());
@@ -62,7 +64,6 @@ const MoviesList = props => {
     }
 
     !scrolled && setTrail({ y: 0, opacity: 1 }); 
-    console.log(movies)
     if (!movies.length) return null;
     return (
         <Fragment>
