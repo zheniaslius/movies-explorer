@@ -28,7 +28,7 @@ const MoviesList = () => {
     const movies = useSelector(state => state.movies.movies);
     const scrollable = useRef(null);
     const [scrollError, setScrollError] = useState(false);
-    const [scrolled, setScrolled] = useState(0);
+    // const [scrolled, setScrolled] = useState(0);
 
     // Animations
     const [trail, setTrail, stopTrail] = useTrail(movies.length, () => ({
