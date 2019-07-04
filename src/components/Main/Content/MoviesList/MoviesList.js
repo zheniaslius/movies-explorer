@@ -73,15 +73,15 @@ const MoviesList = () => {
                     <MoviesContainer ref={scrollable} style={{transform: x.interpolate(x => `translateX(${x}px)`)}}>
                         {
                             trail.map(({y, ...rest}, index) => (
-                                    <AnimatedMovie 
-                                        key={movies[index].id} 
-                                        animation={index < 8
-                                            ? {...rest, transform: y.interpolate(y => `translateY(${y}px)`)}
-                                            : null
-                                        }
-                                        ref={movie => (index === movies.length-5) ? lastMovie = movie : null}
-                                        {...movies[index]}
-                                    />
+                                <AnimatedMovie 
+                                    key={movies[index].id}
+                                    animation={index < 8
+                                        ? {...rest, transform: y.interpolate(y => `translateY(${y}px)`)}
+                                        : null
+                                    }
+                                    ref={movie => (index === movies.length-5) ? lastMovie = movie : null}
+                                    {...movies[index]}
+                                />
                             ))
                         }
                     </MoviesContainer>

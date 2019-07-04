@@ -18,7 +18,8 @@ class Movie extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            hovered: false
+            hovered: false,
+            posterLoaded: false
         }
         this.movieRef = React.createRef();
     }
@@ -28,6 +29,8 @@ class Movie extends Component {
             hovered: !prevState.hovered,
         }))
     }
+
+    posterLoaded = () => this.setState({posterLoaded: true});
 
     isReleasedThisMonth = release => {
         if (release.getFullYear() !== new Date().getFullYear) return false;
@@ -50,7 +53,7 @@ class Movie extends Component {
         } = this.props;
 
         release_date = new Date(release_date);
-        const genreName = genres[0].name;
+        const genreName = genres.length ? genres[0].name : 'Mixed';
         const releaseYear = release_date.getFullYear();
         
         return (
@@ -61,7 +64,7 @@ class Movie extends Component {
                 style={this.props.animation}
                 ref={this.movieRef}
             >
-                <Poster src={`https://image.tmdb.org/t/p/w300/${poster_path}`} />
+                <Poster src={`https://image.tmdb.org/t/p/w300/${poster_path}`} onLoad={this.posterLoaded}/>
                 <Title>{ title }</Title>
                 <DetailsWrapper visible={this.state.hovered}>
                     <Details>
