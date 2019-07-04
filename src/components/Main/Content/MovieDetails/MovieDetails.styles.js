@@ -62,6 +62,7 @@ export const Tags = styled.div`
 
     ${media.mobileL`
         line-height: 2.1;
+        margin-top: 10px;
     `}
 `;
 

@@ -5,11 +5,14 @@ import Content from './Content';
 import { Wrapper } from './Main.styles';
 
 class Main extends Component {
-    constructor(props){
-        super();
-    }
+    state = { sizes: [] }
 
-    getFullPath = img => img && `https://image.tmdb.org/t/p/w1280/${img}`;
+    getFullPath = img => {
+        const size = (window.innerWidth <= 780) ? 780 : 1280;
+        return (img) 
+            ? `https://image.tmdb.org/t/p/w${size}/${img}`
+            : null;
+    }
 
     render() {
         const { background } = this.props;
