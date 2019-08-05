@@ -39,8 +39,7 @@ const MovieDetails = props => {
   const styleTransform = { ...rest, transform: y.interpolate(transformY)};
   
   useEffect(() => {
-    const {id} = props.match.params;
-    dispatch(actions.movieSelected(id));
+    dispatch(actions.movieSelected(props.id));
     dispatch(actions.getMovie());
     set({opacity: 1, y: 0});
   }, [])

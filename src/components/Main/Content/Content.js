@@ -6,7 +6,10 @@ import MovieDetails from './MovieDetails';
 const Content = () => {
     return (
         <Switch>
-            <Route path="/movie/:id" component={MovieDetails} />
+            <Route path="/movie/:id" render={({ match }) => {
+                const { id } = match.params;
+                return <MovieDetails id={id} />
+            }} />
             <Route exact path="/" component={MoviesList} />
         </Switch>
     );
